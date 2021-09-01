@@ -1,56 +1,21 @@
 <?php
-session_start();
-include('koneksi.php');
-
-if(!isset($_SESSION['admin'])==1)
-  { 
-header("location:loginpakar.php");
-}
-else{
- ?>
-<?php 
-session_start();
-include "koneksi.php";
-
-if (isset($_POST['laporan'])) {
-	$value_laporan = $_POST['laporan'];
-	if ($value_laporan == "jawaban") {
-		header("location:laporan-cetak-jawaban.php");
-	}else if ($value_laporan == "perbaikan") {
-		header("location:laporan-cetak-perbaikan.php");
-	}else if ($value_laporan == "kerusakan") {
-    header("location:laporan-cetak-kerusakan.php");
-  }
-	
-}
-
 ?>
-
-
 <!doctype html>
 <html lang="en">
   <head>
-    <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="image/icon.png">
 
-    <title>Laporan</title>
+    <title>Data Gejala</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
-
-    <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script type="text/javascript">
-    	window.history.replaceState(null,null,window.location.href);
-    </script>
   </head>
 
   <body>
@@ -68,29 +33,41 @@ if (isset($_POST['laporan'])) {
       <div class="row">
         <?php include 'pakar-sidebar.php';?>
 
-        <main role="" class="col-md-5 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Laporan</h1>
+            <h1 class="h2">Data Gejala</h1>
           </div>
-          <div class="card">
-
+         <div class="card">
+			  <h5 class="card-header">Form Edit Data Gejala</h5>
 			  <div class="card-body">
-			  	<form method="post">
-				  <div class="form-group col-md-2">
-				    <label for="exampleFormControlInput2">Pilih Jenis Laporan :</label>
-				    <select name="laporan" class="form-control" id="exampleFormControlSelect2">
-						<option selected="true" disabled="disabled" value="">Pilih</option>
-            <option value="jawaban">Jawaban</option>
-						<option value="perbaikan">Perbaikan</option>
-            <option value="kerusakan">Kerusakan</option>
-					</select><br>
-          <input type="submit" class="btn btn-info" style="width:100%;" value="Lihat Laporan" name="view">
-				  </div>
+			  	<?php 
+			  	include 'koneksi.php';
+					$id=$_GET['id'];
+					$sql ="SELECT * FROM tb_gejala WHERE kode_gejala='".$id."'";
+					$query = mysqli_query($connect,$sql);
+					$result = mysqli_fetch_array($query);
+				?>
 
-				  
-				</form>		    
+			  	<form action="updategejala.php" method="post">
+				  <div class="form-group">
+				    <label for="exampleFormControlInput2">Kode Gejala :</label>
+				    <input type="hidden" name="id" value="<?php echo $result['kode_gejala'] ?>">
+				    <input type="text" name="no" class="form-control" value="<?php echo ($result['kode_gejala']);?>" readonly>
+				  </div>
+		          <div class="form-group">
+		            <label for="exampleFormControlInput2">Gejala :</label>
+		            <input type="text" name="gejala" class="form-control" id="exampleFormControlInput2" value="<?php echo ($result['gejala']);?>">
+		          </div>
+		          <div class="form-group">
+		            <label for="exampleFormControlInput2">Jenis Kerusakan :</label>
+		             <input type="text" name="jeniskerusakan" class="form-control" id="exampleFormControlInput2" value="<?php echo ($result['jeniskerusakan']);?>">
+		          </div>
+
+				  <input type="submit" class="btn btn-info" name="submit">
+				</form>			    
 			  </div>
 			</div>
+
         </main>
       </div>
     </div>
@@ -99,15 +76,12 @@ if (isset($_POST['laporan'])) {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>    
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
     <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
-
-    <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
     </script>
   </body>
 </html>
-<?php }?>

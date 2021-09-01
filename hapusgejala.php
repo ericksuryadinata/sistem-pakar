@@ -1,18 +1,17 @@
 <?php
   include("koneksi.php");
 
-  $query = "DELETE FROM tb_kesimpulan where kode_kesimpulan='".$_GET['id']."'";
+  $query = "DELETE FROM tb_gejala where kode_gejala='".$_GET['id']."'";
   if (mysqli_query($connect,$query)){
   	echo "<script type='text/javascript'>
-			alert('Data berhasil dihapus.'); 
-			document.location = 'pakar-basis.php'; 
+			alert('Data berhasil dihapus!'); 
+			document.location = 'pakar-gejala.php'; 
 		</script>";
-    //header("location:pakar-data.php");
   }
   else {
 	echo "<script type='text/javascript'>
 			alert('Terjadi kesalahan, silahkan coba lagi!.'); 
-			document.location = 'pakar-basis.php'; 
+			document.location = 'pakar-gejala.php'; 
 		</script>";
 	}
  ?>
