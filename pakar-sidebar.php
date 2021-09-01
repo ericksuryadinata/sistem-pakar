@@ -26,9 +26,17 @@
                   <span data-feather="folder"></span>
                   Data Perbaikan
                 </a>
-                <a class="nav-link" href="pakar-kerusakan.php">
+                <a class="nav-link" href="pakar-gejala.php">
                   <span data-feather="folder"></span>
-                  Data Kerusakan
+                  Data Gejala
+                </a>
+                <a class="nav-link" href="pakar-solusi.php">
+                  <span data-feather="folder"></span>
+                  Data Solusi
+                </a>  
+                <a class="nav-link" href="pakar-basis.php">
+                  <span data-feather="folder"></span>
+                  Basis Pengetahuan
                 </a>               
                 <a class="nav-link" href="laporan.php">
                   <span data-feather="printer"></span>
